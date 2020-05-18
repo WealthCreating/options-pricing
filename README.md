@@ -1,4 +1,4 @@
-# Options Pricing Library
+# Pricing Options Using Monte Carlo Methods
 
 This Python-based Monte Carlo library for calculating option prices is based on the first 5 chapters of the classic finance book ["C++ Design Patterns and Derivatives Pricing" by Mark S. Joshi][1].
 
