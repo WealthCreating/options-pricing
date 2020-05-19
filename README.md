@@ -18,7 +18,7 @@ $ python -m unittest discover src
 
 Run [Jupyter notebook](notebooks/MonteCarlo.ipynb) containing usage examples:
 ```
-jupyter notebook notebooks/MonteCarlo.ipynb 
+$ jupyter notebook notebooks/MonteCarlo.ipynb 
 ```
 
 ### Potential Future Improvements
