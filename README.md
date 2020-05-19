@@ -4,7 +4,7 @@ This Python-based Monte Carlo library for calculating option prices is based on 
 
 ### Getting Started
 
-Run a unit test:
+Run unit tests:
 ```
 $ python -m unittest discover src
 ```
