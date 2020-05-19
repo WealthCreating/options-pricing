@@ -10,6 +10,11 @@ $ python -m unittest discover src
 ```
 #TODO: Vie  Jupyter Notebook
 
+### Potential Future Improvements
+
+* NumPy implementation
+* Cython implementation
+
 ### References
 
 * https://web.archive.org/web/20190107102714/http://markjoshi.com/design
