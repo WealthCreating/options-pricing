@@ -16,7 +16,7 @@ Run unit tests:
 $ python -m unittest discover src
 ```
 
-Run Jupyter notebook containing usage examples:
+Run [Jupyter notebook](notebooks/MonteCarlo.ipynb) containing usage examples:
 ```
 jupyter notebook notebooks/MonteCarlo.ipynb 
 ```
