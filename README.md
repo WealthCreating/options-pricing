@@ -28,7 +28,8 @@ $ jupyter notebook notebooks/MonteCarlo.ipynb
 
 ### References
 
-* https://web.archive.org/web/20190107102714/http://markjoshi.com/design
-* https://web.archive.org/web/20160817064828if_/http://markjoshi.com/design/ClassDiagram.jpg
+* Mark Joshi's website (from web.archive.org):
+  * https://web.archive.org/web/20190107102714/http://markjoshi.com/design
+  * https://web.archive.org/web/20160817064828if_/http://markjoshi.com/design/ClassDiagram.jpg
 
 [1]: https://www.amazon.com/Patterns-Derivatives-Pricing-Mathematics-Finance/dp/0521721628
