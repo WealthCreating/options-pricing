@@ -1,6 +1,7 @@
 """Accumulates statistics during Monte Carlo runs."""
 
 from abc import abstractmethod
+import math
 
 
 class StatisticsMC:
@@ -81,7 +82,8 @@ class ConvergenceTable(StatisticsMC):
         self.paths_done += 1
 
         if self.paths_done == self.stopping_point:
-            self.stopping_point *= 2
+            self.stopping_point = math.ceil(self.stopping_point * 2)
+
             this_result = self.stats.get_results_so_far()
             for i in range(len(this_result)):
                 this_result[i].append(self.paths_done)

@@ -1,4 +1,4 @@
-"""Represents options and performs Monte Carlo simulations."""
+"""Represents miscellaneous option types and performs Monte Carlo simulations."""
 
 from abc import ABC, abstractmethod
 import math
@@ -150,6 +150,7 @@ class Simulation:
             option (float): Option type to use.
             spot (float): Spot price.
             vol (:obj:`Parameters`): Volatility function.
+            r (:obj:`Parameters`): Interest rate function.
             number_of_paths (int): Number of random paths to generate.
             gatherer (:obj:`MCStatistics`): Interest rate function.
             seed (int): Random seed.
@@ -178,6 +179,37 @@ class CalcEuropeanOption:
     Calculates a European option using Monte Carlo methods.
     """
     @staticmethod
+    def call_price_stats(strike,
+                         expiry,
+                         spot,
+                         vol,
+                         r,
+                         number_of_paths,
+                         seed=None):
+        """
+        Calculates a call price for a European option by running a Monte Carlo simulation.
+
+        Args:
+            strike (float): Strike price.
+            expiry (float): Expiry.
+            spot (float): Spot price.
+            vol (:obj:`Parameters`): Volatility function.
+            r (:obj:`Parameters`): Interest rate function.
+            number_of_paths (int): Number of paths to calculate.
+            seed (int): Random seed.
+
+        Returns:
+            (:obj:`ConvergenceTable`): Returns statistics gathered during the Monte Carlo run.
+        """
+        gatherer = ConvergenceTable(StatisticsMean())
+
+        Simulation.option_price(VanillaOption(expiry,
+                                              PayOffCall(strike)), spot,
+                                ParametersConstant(vol), ParametersConstant(r),
+                                number_of_paths, gatherer, seed)
+        return gatherer
+
+    @staticmethod
     def call_price(strike, expiry, spot, vol, r, number_of_paths, seed=None):
         """
         Calculates a call price for a European option by running a Monte Carlo simulation.
@@ -188,20 +220,46 @@ class CalcEuropeanOption:
             spot (float): Spot price.
             vol (:obj:`Parameters`): Volatility function.
             r (:obj:`Parameters`): Interest rate function.
+            number_of_paths (int): Number of paths to calculate.
             seed (int): Random seed.
 
         Returns:
             (float): Resulting call price.
         """
+        convergence_table = CalcEuropeanOption.call_price_stats(
+            strike, expiry, spot, vol, r, number_of_paths, seed)
+        price = convergence_table.get_results_so_far()[-1][0]
+        return price
+
+    @staticmethod
+    def put_price_stats(strike,
+                        expiry,
+                        spot,
+                        vol,
+                        r,
+                        number_of_paths,
+                        seed=None):
+        """
+        Calculates a put price for a European option by running a Monte Carlo simulation.
+
+        Args:
+            strike (float): Strike price.
+            expiry (float): Expiry.
+            spot (float): Spot price.
+            vol (:obj:`Parameters`): Volatility function.
+            r (:obj:`Parameters`): Interest rate function.
+            number_of_paths (int): Number of paths to calculate.
+            seed (int): Random seed.
+
+        Returns:
+            (:obj:`ConvergenceTable`): Returns statistics gathered during the Monte Carlo run.
+        """
         gatherer = ConvergenceTable(StatisticsMean())
 
-        Simulation.option_price(VanillaOption(expiry,
-                                              PayOffCall(strike)), spot,
+        Simulation.option_price(VanillaOption(expiry, PayOffPut(strike)), spot,
                                 ParametersConstant(vol), ParametersConstant(r),
                                 number_of_paths, gatherer, seed)
-
-        price = gatherer.get_results_so_far()[-1][0]
-        return price
+        return gatherer
 
     @staticmethod
     def put_price(strike, expiry, spot, vol, r, number_of_paths, seed=None):
@@ -214,16 +272,13 @@ class CalcEuropeanOption:
             spot (float): Spot price.
             vol (:obj:`Parameters`): Volatility function.
             r (:obj:`Parameters`): Interest rate function.
+            number_of_paths (int): Number of paths to calculate.
             seed (int): Random seed.
 
         Returns:
             (float): Resulting put price.
         """
-        gatherer = ConvergenceTable(StatisticsMean())
-
-        Simulation.option_price(VanillaOption(expiry, PayOffPut(strike)), spot,
-                                ParametersConstant(vol), ParametersConstant(r),
-                                number_of_paths, gatherer, seed)
-
-        price = gatherer.get_results_so_far()[-1][0]
+        convergence_table = CalcEuropeanOption.put_price_stats(
+            strike, expiry, spot, vol, r, number_of_paths, seed)
+        price = convergence_table.get_results_so_far()[-1][0]
         return price
