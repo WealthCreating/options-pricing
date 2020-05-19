@@ -4,11 +4,16 @@ This Python-based Monte Carlo library for calculating option prices is based on 
 
 ### Getting Started
 
-Run a unit test:
+Run unit tests:
 ```
-$ PYTHONPATH=src python src/monte_carlo/test_options.py
+$ python -m unittest discover src
 ```
 #TODO: Vie  Jupyter Notebook
+
+### Potential Future Improvements
+
+* NumPy implementation
+* Cython implementation
 
 ### References
 
