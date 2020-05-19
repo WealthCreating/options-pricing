@@ -2,13 +2,24 @@
 
 This Python-based Monte Carlo library for calculating option prices is based on the first 5 chapters of the classic finance book ["C++ Design Patterns and Derivatives Pricing" by Mark S. Joshi][1].
 
+The first iteration of this library is implemented using the Python Standard Library. I am planning to extend it to cover NumPy and Cython shortly.
+
 ### Getting Started
+
+Install prerequisites:
+```
+$ conda env create -f environment.yml 
+```
 
 Run unit tests:
 ```
 $ python -m unittest discover src
 ```
-#TODO: Vie  Jupyter Notebook
+
+Run Jupyter notebook containing usage examples:
+```
+jupyter notebook notebooks/MonteCarlo.ipynb 
+```
 
 ### Potential Future Improvements
 
