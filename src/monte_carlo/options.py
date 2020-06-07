@@ -1,4 +1,4 @@
-"""Represents miscellaneous option types and performs Monte Carlo simulations."""
+"""Represents miscellaneous option types and Monte Carlo simulations."""
 
 from abc import ABC, abstractmethod
 import math
@@ -12,6 +12,7 @@ class PayOff(ABC):
     """
     Abstract representation for option payoff functions.
     """
+
     def __init__(self, strike):
         """
         Initializes a payoff class by defining a strike price.
@@ -35,6 +36,7 @@ class PayOffCall(PayOff):
     """
     Represents a payoff function for a call option.
     """
+
     def calc(self, spot):
         """
         Calculates a payoff amount for a call option given a spot price.
@@ -52,6 +54,7 @@ class PayOffPut(PayOff):
     """
     Represents a payoff function for a put option.
     """
+
     def calc(self, spot):
         """
         Calculates a payoff amount for a put option given a spot price.
@@ -69,6 +72,7 @@ class PayOffDoubleDigital(PayOff):
     """
     Represents a payoff function for a double digital option.
     """
+
     def __init__(self, lower_level, upper_level):
         """
         Initializes lower and upper levels for a double digital option.
@@ -88,8 +92,8 @@ class PayOffDoubleDigital(PayOff):
             spot (float): Spot price.
 
         Returns:
-             (float): Returns 0 if the spot price is below (inclusive) the lower level or
-                above the upper level (inclusive).
+             (float): Returns 0 if the spot price is below (inclusive) the lower level
+                or above the upper level (inclusive).
         """
         if spot <= self.lower_level:
             return 0
@@ -104,6 +108,7 @@ class VanillaOption:
     """
     Describes a generic vanilla option (either put or call).
     """
+
     def __init__(self, expiry, pay_off):
         """
         Initializes an expiry and a payoff function.
@@ -141,6 +146,7 @@ class Simulation:
     """
     Performs a Monte Carlo simulation for pricing options.
     """
+
     @staticmethod
     def option_price(option, spot, vol, r, number_of_paths, gatherer, seed):
         """
@@ -178,16 +184,12 @@ class CalcEuropeanOption:
     """
     Calculates a European option using Monte Carlo methods.
     """
+
     @staticmethod
-    def call_price_stats(strike,
-                         expiry,
-                         spot,
-                         vol,
-                         r,
-                         number_of_paths,
-                         seed=None):
+    def call_price_stats(strike, expiry, spot, vol, r, number_of_paths, seed=None):
         """
-        Calculates a call price for a European option by running a Monte Carlo simulation.
+        Calculates a call price for a European option by running a Monte Carlo
+        simulation.
 
         Args:
             strike (float): Strike price.
@@ -199,20 +201,27 @@ class CalcEuropeanOption:
             seed (int): Random seed.
 
         Returns:
-            (:obj:`ConvergenceTable`): Returns statistics gathered during the Monte Carlo run.
+            (:obj:`ConvergenceTable`): Returns statistics gathered during
+                the Monte Carlo run.
         """
         gatherer = ConvergenceTable(StatisticsMean())
 
-        Simulation.option_price(VanillaOption(expiry,
-                                              PayOffCall(strike)), spot,
-                                ParametersConstant(vol), ParametersConstant(r),
-                                number_of_paths, gatherer, seed)
+        Simulation.option_price(
+            VanillaOption(expiry, PayOffCall(strike)),
+            spot,
+            ParametersConstant(vol),
+            ParametersConstant(r),
+            number_of_paths,
+            gatherer,
+            seed,
+        )
         return gatherer
 
     @staticmethod
     def call_price(strike, expiry, spot, vol, r, number_of_paths, seed=None):
         """
-        Calculates a call price for a European option by running a Monte Carlo simulation.
+        Calculates a call price for a European option by running a Monte Carlo
+        simulation.
 
         Args:
             strike (float): Strike price.
@@ -227,20 +236,16 @@ class CalcEuropeanOption:
             (float): Resulting call price.
         """
         convergence_table = CalcEuropeanOption.call_price_stats(
-            strike, expiry, spot, vol, r, number_of_paths, seed)
+            strike, expiry, spot, vol, r, number_of_paths, seed
+        )
         price = convergence_table.get_results_so_far()[-1][0]
         return price
 
     @staticmethod
-    def put_price_stats(strike,
-                        expiry,
-                        spot,
-                        vol,
-                        r,
-                        number_of_paths,
-                        seed=None):
+    def put_price_stats(strike, expiry, spot, vol, r, number_of_paths, seed=None):
         """
-        Calculates a put price for a European option by running a Monte Carlo simulation.
+        Calculates a put price for a European option by running a Monte Carlo
+        simulation.
 
         Args:
             strike (float): Strike price.
@@ -252,19 +257,27 @@ class CalcEuropeanOption:
             seed (int): Random seed.
 
         Returns:
-            (:obj:`ConvergenceTable`): Returns statistics gathered during the Monte Carlo run.
+            (:obj:`ConvergenceTable`): Returns statistics gathered during the Monte
+                Carlo run.
         """
         gatherer = ConvergenceTable(StatisticsMean())
 
-        Simulation.option_price(VanillaOption(expiry, PayOffPut(strike)), spot,
-                                ParametersConstant(vol), ParametersConstant(r),
-                                number_of_paths, gatherer, seed)
+        Simulation.option_price(
+            VanillaOption(expiry, PayOffPut(strike)),
+            spot,
+            ParametersConstant(vol),
+            ParametersConstant(r),
+            number_of_paths,
+            gatherer,
+            seed,
+        )
         return gatherer
 
     @staticmethod
     def put_price(strike, expiry, spot, vol, r, number_of_paths, seed=None):
         """
-        Calculates a put price for a European option by running a Monte Carlo simulation.
+        Calculates a put price for a European option by running a Monte Carlo
+        simulation.
 
         Args:
             strike (float): Strike price.
@@ -279,6 +292,7 @@ class CalcEuropeanOption:
             (float): Resulting put price.
         """
         convergence_table = CalcEuropeanOption.put_price_stats(
-            strike, expiry, spot, vol, r, number_of_paths, seed)
+            strike, expiry, spot, vol, r, number_of_paths, seed
+        )
         price = convergence_table.get_results_so_far()[-1][0]
         return price

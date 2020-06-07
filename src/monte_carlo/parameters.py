@@ -9,6 +9,7 @@ class Parameters(ABC):
 
     Each parameter is a function (can be constant) of time.
     """
+
     @abstractmethod
     def integral(self, time1, time2):
         """
@@ -25,7 +26,8 @@ class Parameters(ABC):
     @abstractmethod
     def integral_square(self, time1, time2):
         """
-        Calculates an integral of the squared parameter (function) between two points in time.
+        Calculates an integral of the squared parameter (function) between two points
+        in time.
 
         Args:
             time1 (float): Starting time point
@@ -40,6 +42,7 @@ class ParametersConstant(Parameters):
     """
     Represents a constant parameter (function).
     """
+
     def __init__(self, constant) -> None:
         """
         Initializes the class with a constant value.
@@ -65,7 +68,8 @@ class ParametersConstant(Parameters):
 
     def integral_square(self, time1, time2):
         """
-        Calculates an integral of a squared constant function between two points in time.
+        Calculates an integral of a squared constant function between two points in
+        time.
 
         Args:
             time1 (float): Starting time point

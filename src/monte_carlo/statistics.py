@@ -8,6 +8,7 @@ class StatisticsMC:
     """
     Base class for all statistics accumulators.
     """
+
     @abstractmethod
     def dump_one_result(self, result):
         """
@@ -31,6 +32,7 @@ class StatisticsMean(StatisticsMC):
     """
     Computes a running mean of incoming results.
     """
+
     def __init__(self):
         """
         Initializes a running sum and a number of calculated (done) paths.
@@ -57,12 +59,15 @@ class ConvergenceTable(StatisticsMC):
     """
     Saves running statistics at discrete points in time.
     """
+
     def __init__(self, stats):
         """
-        Initializes storage for keeping track of results. Also, defines a stopping point schedule.
+        Initializes storage for keeping track of results. Also, defines a stopping point
+        schedule.
 
         Args:
-             stats (:obj:`StatisticsMC`): Particular class used to calculate running statistics.
+             stats (:obj:`StatisticsMC`): Particular class used to calculate running
+                statistics.
         """
         self.stats = stats
         self.results_so_far = []
@@ -71,9 +76,9 @@ class ConvergenceTable(StatisticsMC):
 
     def dump_one_result(self, result):
         """
-        Given a new result computes a running statistics and keeps track of how many paths
-        were calculated so far. Also, at pre-defined stopping points, the latest statistic
-        is saved into an array.
+        Given a new result computes a running statistics and keeps track of how many
+        paths were calculated so far. Also, at pre-defined stopping points, the latest
+        statistic is saved into an array.
 
         Args:
             result (float): Incoming result.
