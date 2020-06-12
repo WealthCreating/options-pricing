@@ -5,6 +5,7 @@ import math
 
 
 class StatisticsMC:
+
     """
     Base class for all statistics accumulators.
     """
