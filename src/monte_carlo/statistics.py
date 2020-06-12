@@ -12,6 +12,8 @@ class StatisticsMC:
     @abstractmethod
     def dump_one_result(self, result):
         """
+
+
         Computes ongoing statistics based on an incoming result.
 
         Args:
