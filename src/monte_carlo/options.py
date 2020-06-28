@@ -1,8 +1,8 @@
 """Represents miscellaneous option types and Monte Carlo simulations."""
 
-from abc import ABC, abstractmethod
 import math
 import random
+from abc import ABC, abstractmethod
 
 from .parameters import ParametersConstant
 from .statistics import ConvergenceTable, StatisticsMean

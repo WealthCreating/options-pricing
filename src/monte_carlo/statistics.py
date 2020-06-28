@@ -1,7 +1,7 @@
 """Accumulates statistics during Monte Carlo runs."""
 
-from abc import abstractmethod
 import math
+from abc import abstractmethod
 
 
 class StatisticsMC:
